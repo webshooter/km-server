@@ -1,0 +1,246 @@
+<!doctype html>
+<html>
+<head>
+  <title>km-server test page</title>  
+  <style>
+  body {
+    font-family: Ariel, verdana, sans-serif;
+    font-size: 0.8em;
+    padding: 0;
+  }
+  h1 {
+    margin-top: 30px;
+    padding: 5px 5px 5px 15px;
+    color: #ffffff;
+    background-color: #7a7aff;
+  }
+  #pgtitle {
+    font-size: 2.5em;
+    font-weight: bold;
+    padding: 10px 10px 10px 20px;
+    background-color: #dedede;
+  }
+  div#navbar {
+    padding: 5px 10px 5px 10px;
+    margin: 5px;
+  }
+  div#navbar a {
+    color: #4a4a4a;
+    text-decoration: none;
+  }
+  div#navbar a:hover {
+    color: #ff9900;
+    text-decoration: underline;
+  }
+  .resultsbox {
+    padding: 5px;
+    width: 400px;
+    height: 100px;
+    font-family: courier;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="pgtitle">km-server test page</div>
+
+  <div id="navbar">
+    Tests:&nbsp;&nbsp;
+    <a href="#newplayer">Create new player</a>
+    &nbsp;|&nbsp;<a href="#avail">Check availability</a>
+    &nbsp;|&nbsp;<a href="#login">Login</a>
+    &nbsp;|&nbsp;<a href="#newgame">New game</a>
+  </div>
+
+<a name="newplayer"></a>
+<h1 style="margin-top: 10px;">Create new player</h1>
+Player name:&nbsp;&nbsp;
+<input id="pname" type="text" size="40" />
+<br>
+Player email:&nbsp;&nbsp;
+<input id="pemail" type="text" size="40" />
+<br>
+Player password:&nbsp;
+<input id="ppwd" type="text" size="40" />
+<br>
+<input id="btnnewplayer" type="button" value="create player" />
+<br><br>
+Request data sent:
+<br>
+<textarea class="resultsbox" id="newplayerrequest"></textarea>
+<br><br>
+Response data received:
+<br>
+<textarea class="resultsbox" id="newplayerresponse"></textarea>
+
+
+<a name="avail"></a>
+<h1>Check name or email availability</h1>
+Select:
+<br>
+<input type="radio" name="field" value="name" checked="checked">&nbsp;Name
+<br>
+<input type="radio" name="field" value="email">&nbsp;Email
+<br>
+Value to check&nbsp;
+<input id="fieldval" type="text" size="40" />
+<br>
+<input id="btnfieldval" type="button" value="check availability" />
+<br><br>
+Request data sent:
+<br>
+<textarea class="resultsbox" id="availrequest"></textarea>
+<br><br>
+Response data received:
+<br>
+<textarea class="resultsbox" id="availresponse"></textarea>
+
+
+<a name="login"></a>
+<h1>Player login</h1>
+Player name:&nbsp;&nbsp;
+<input id="loginname" type="text" size="40" />
+<br>
+Password:&nbsp;&nbsp;
+<input id="loginpwd" type="text" size="40" />
+<br>
+<input id="btnlogin" type="button" value="login" />
+<br><br>
+Request data sent:
+<br>
+<textarea class="resultsbox" id="loginrequest"></textarea>
+<br><br>
+Response data received:
+<br>
+<textarea class="resultsbox" id="loginresponse"></textarea>
+
+
+<a name="newgame"></a>
+<h1>Create new game</h1>
+Player:<br>
+<input type="radio" name="players" value="oBEotcB6zBZwdJ1MowHg6lx7Z" checked="checked">&nbsp;
+Player1 [oBEotcB6zBZwdJ1MowHg6lx7Z]<br>
+<input type="radio" name="players" value="FWNiMk8AVLqa6eQ8eTvi9mcQp">&nbsp;
+Player2 [FWNiMk8AVLqa6eQ8eTvi9mcQp]<br>
+<input type="radio" name="players" value="i1bHo30OeqrXJuB4wTnUs22zq">&nbsp;
+Player3 [i1bHo30OeqrXJuB4wTnUs22zq]<br>
+<input type="radio" name="players" value="7tr4t7ETT9guiTT7TfDiCuHFA">&nbsp;
+Player4 [7tr4t7ETT9guiTT7TfDiCuHFA]<br>
+<input type="radio" name="players" value="gVll3e5rGPiqDGG2JU1ie7hKH">&nbsp;
+Player5 [gVll3e5rGPiqDGG2JU1ie7hKH]<br>
+<br>
+Opponent name:<br>
+<input type="radio" name="opponents" value="player1">&nbsp;Player1<br>
+<input type="radio" name="opponents" value="player2" checked="checked">&nbsp;Player2<br>
+<input type="radio" name="opponents" value="player3">&nbsp;Player3<br>
+<input type="radio" name="opponents" value="player4">&nbsp;Player4<br>
+<input type="radio" name="opponents" value="player5">&nbsp;Player5<br>
+<br>
+<input id="btnnewgame" type="button" value="new game" />
+<br><br>
+Request data sent:
+<br>
+<textarea class="resultsbox" id="newgamerequest"></textarea>
+<br><br>
+Response data received:
+<br>
+<textarea class="resultsbox" id="newgameresponse"></textarea>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){ //jQuery
+
+  $("#btnnewplayer").click(
+      function(event) {
+        var myData = {
+          name: $("#pname").val(),
+          email: $("#pemail").val(),
+          pwd: $("#ppwd").val()
+        };
+        $("#newplayerrequest").val(JSON.stringify(myData));
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:8888/join",
+          crossDomain: true,
+          contentType: 'text/json',
+          dataType: "json",
+          data: JSON.stringify(myData),
+          success: function(data) {
+             $("#newplayerresults").val(JSON.stringify(data));
+          }
+        });
+      }
+    );
+
+  $("#btnfieldval").click(
+      function(event) {
+        var myData = {
+          field: $("input:radio[name='field']:checked").val(),
+          value: $("#fieldval").val()
+        };
+        $("#availrequest").val(JSON.stringify(myData));
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:8888/val",
+          crossDomain: true,
+          contentType: 'text/json',
+          dataType: "json",
+          data: JSON.stringify(myData),
+          success: function(data) {
+             $("#availresponse").val(JSON.stringify(data));
+          }
+        });
+      }
+    );
+
+  $("#btnlogin").click(
+      function(event) {
+        var myData = {
+          name: $("#loginname").val(),
+          pwd:  $("#loginpwd").val()
+        };
+        $("#loginrequest").val(JSON.stringify(myData));
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:8888/login",
+          crossDomain: true,
+          contentType: 'text/json',
+          dataType: "json",
+          data: JSON.stringify(myData),
+          success: function(data) {
+             $("#loginresponse").val(JSON.stringify(data));
+          }
+        });
+      }
+    );
+
+  $("#btnnewgame").click(
+      function(event) {
+        var myData = {
+          playerid: $("input:radio[name='players']:checked").val(),
+          opponent: $("input:radio[name='opponents']:checked").val(),
+        };
+        $("#newgamerequest").val(JSON.stringify(myData));
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:8888/play",
+          crossDomain: true,
+          contentType: 'text/json',
+          dataType: "json",
+          data: JSON.stringify(myData),
+          success: function(data) {
+             $("#newgameresponse").val(JSON.stringify(data));
+          }
+        });
+      }
+    );
+
+});
+</script>
+
+</body>
+
+</html>
