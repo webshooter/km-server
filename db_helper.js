@@ -178,6 +178,18 @@ function createNewGame (playerid, opponentid, callback) {
 
 }
 
+function getGameData(gameid, callback) {
+  var sql = "select games.opponentid from games where id like (?)";
+  client.query(sql, [gameid],
+    function(err, rows, fields) {
+      if (err) { throw err; }
+      if (rows.length > 0) {
+        callback(rows[0].opponentid);
+      }
+    }
+  );
+}
+
 function updatePrefs(playerid, prefs) {
   if (prefs) {
     var boardPrefs  = prefs.board,
@@ -247,6 +259,7 @@ function getRandomId(idLength) {
 exports.playerExists  = playerExists;
 exports.validateField = validateField;
 exports.login         = login;
-exports.play         = play;
+exports.play          = play;
 exports.newPlayer     = newPlayer;
+exports.getGameData   = getGameData;
 
