@@ -179,12 +179,12 @@ function createNewGame (playerid, opponentid, callback) {
 }
 
 function getGameData(gameid, callback) {
-  var sql = "select opponentid from games where id like (?)";
+  var sql = "select * from games where id like (?)";
   client.query(sql, [gameid],
     function(err, rows, fields) {
       if (err) { throw err; }
       if (rows.length > 0) {
-        callback(rows[0].opponentid);
+        callback(rows[0]);
       }
     }
   );

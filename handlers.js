@@ -69,7 +69,8 @@ function token(response, postData) {
       tokenPlayerProm   = "3",
       tokenOpponentProm = "4";
   db_helper.getGameData(gameid, 
-    function(oid) {
+    function(row) {
+      var oid = row.opponentid;
       if (oid &&  oid == playerid) {
         tokenPlayer       = "2",
         tokenOpponent     = "1",
