@@ -76,10 +76,10 @@ function token(response, postData) {
         tokenOpponentProm = "3";
       }
       results = {
-        player       = tokenPlayer,
-        opponent     = tokenOpponent,
-        playerprom   = tokenPlayerProm,
-        opponentprom = tokenOpponentProm;
+        player:       tokenPlayer,
+        opponent:     tokenOpponent,
+        playerprom:   tokenPlayerProm,
+        opponentprom: tokenOpponentProm
       };
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(JSON.stringify(results));
