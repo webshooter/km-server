@@ -59,6 +59,35 @@ function login (response, postData) {
   );
 }
 
+function token(response, postData) {
+  var gameid            = postData.gameid,
+      playerid          = postData.playerid,
+      results           = {};
+      tokenPlayer       = "1",
+      tokenOpponent     = "2",
+      tokenPlayerProm   = "3",
+      tokenOpponentProm = "4";
+  db_helper.getGameDate(gameid, 
+    function(oid) {
+      if (playerid == oid) {
+        tokenPlayer       = "2",
+        tokenOpponent     = "1",
+        tokenPlayerProm   = "4",
+        tokenOpponentProm = "3";
+      }
+      results = {
+        player       = tokenPlayer,
+        opponent     = tokenOpponent,
+        playerprom   = tokenPlayerProm,
+        opponentprom = tokenOpponentProm;
+      };
+      response.writeHead(200, {"Content-Type": "text/html"});
+      response.write(JSON.stringify(results));
+      response.end();
+    }
+  ); 
+}
+
 function test(response, postData) {
   
   // tmplOptions = {
@@ -87,7 +116,9 @@ exports.update   = update;
 exports.login    = login;
 exports.join     = join;
 exports.validate = validate;
+exports.token    = token;
 exports.test     = test;
+
 
 
 
