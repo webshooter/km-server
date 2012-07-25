@@ -60,16 +60,17 @@ function login (response, postData) {
 }
 
 function token(response, postData) {
-  var gameid            = postData.gameid,
-      playerid          = postData.playerid,
+  var data              = JSON.parse(postData),
+      gameid            = data.gameid,
+      playerid          = data.playerid,
       results           = {};
       tokenPlayer       = "1",
       tokenOpponent     = "2",
       tokenPlayerProm   = "3",
       tokenOpponentProm = "4";
-  db_helper.getGameDate(gameid, 
+  db_helper.getGameData(gameid, 
     function(oid) {
-      if (playerid == oid) {
+      if (oid &&  oid == playerid) {
         tokenPlayer       = "2",
         tokenOpponent     = "1",
         tokenPlayerProm   = "4",
