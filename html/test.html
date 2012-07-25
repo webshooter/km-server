@@ -51,6 +51,7 @@
     &nbsp;|&nbsp;<a href="#avail">Check availability</a>
     &nbsp;|&nbsp;<a href="#login">Login</a>
     &nbsp;|&nbsp;<a href="#newgame">New game</a>
+    &nbsp;|&nbsp;<a href="#newgame">Tokens</a>
   </div>
 
 <a name="newplayer"></a>
@@ -148,6 +149,24 @@ Response data received:
 <textarea class="resultsbox" id="newgameresponse"></textarea>
 
 
+<a name="tokens"></a>
+<h1>Get token definitions</h1>
+Game id:&nbsp;&nbsp;
+<input id="tokengameid" type="text" size="40" />
+<br>
+Player id:&nbsp;&nbsp;
+<input id="tokenplayerid" type="text" size="40" />
+<br>
+<input id="btntoken" type="button" value="get tokens" />
+<br><br>
+Request data sent:
+<br>
+<textarea class="resultsbox" id="tokenrequest"></textarea>
+<br><br>
+Response data received:
+<br>
+<textarea class="resultsbox" id="tokenresponse"></textarea>
+
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>
@@ -233,6 +252,27 @@ $(document).ready(function(){ //jQuery
           data: JSON.stringify(myData),
           success: function(data) {
              $("#newgameresponse").val(JSON.stringify(data));
+          }
+        });
+      }
+    );
+
+  $("#btntoken").click(
+      function(event) {
+        var myData = {
+          gameid:   $("#tokengameid").val(),
+          playerid: $("#tokenplayerid").val()
+        };
+        $("#tokenrequest").val(JSON.stringify(myData));
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:8888/tok",
+          crossDomain: true,
+          contentType: 'text/json',
+          dataType: "json",
+          data: JSON.stringify(myData),
+          success: function(data) {
+             $("#tokenresponse").val(JSON.stringify(data));
           }
         });
       }
