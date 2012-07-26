@@ -188,7 +188,8 @@ $(document).ready(function(){ //jQuery
           dataType: "json",
           data: JSON.stringify(myData),
           success: function(data) {
-             $("#newplayerresults").val(JSON.stringify(data));
+            console.log(data);
+             $("#newplayerresponse").val(JSON.stringify(data));
           }
         });
       }
