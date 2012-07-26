@@ -1,7 +1,8 @@
-var http  = require("http");
-var url   = require("url");
-db_helper = require("./db_helper");
-templater = require("./templater");
+var http  = require("http"),
+    url   = require("url"),
+    //db_helper = require("./db_helper"),
+    db_helper = require("./db"),
+    templater = require("./templater");
 
 function start(route, req) {
 

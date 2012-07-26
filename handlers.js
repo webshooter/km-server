@@ -1,4 +1,5 @@
-var db_helper = require("./db_helper"),
+var //db_helper = require("./db_helper"),
+    db_helper = require("./db"),
     templater = require("./templater");
 
 function home(response, postData) {
@@ -31,6 +32,7 @@ function update(response, postData) {
 
 function join(response, postData) {
   db_helper.newPlayer(JSON.parse(postData), function(results) {
+    console.log(JSON.stringify(results));
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(JSON.stringify(results));
     response.end();
