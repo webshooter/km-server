@@ -1,7 +1,6 @@
 var http  = require("http"),
     url   = require("url"),
-    //db_helper = require("./db_helper"),
-    db_helper = require("./db"),
+    db = require("./db"),
     templater = require("./templater");
 
 function start(route, req) {
@@ -69,3 +68,5 @@ function start(route, req) {
 }
 
 exports.start = start;
+
+

@@ -13,6 +13,6 @@ req["/login"]  = handlers.login;
 req["/join"]   = handlers.join;
 req["/val"]    = handlers.validate;
 req["/tok"]    = handlers.token;
-req["/test"]    = handlers.test;
+req["/test"]   = handlers.test;
 
 server.start(router.route, req);

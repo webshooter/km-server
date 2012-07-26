@@ -1,5 +1,4 @@
-var //db_helper = require("./db_helper"),
-    db_helper = require("./db"),
+var db = require("./db"),
     templater = require("./templater");
 
 function home(response, postData) {
@@ -12,7 +11,7 @@ function home(response, postData) {
 
 function play(response, postData) {
   var data = JSON.parse(postData);
-  db_helper.play(data.playerid, data.opponent, 
+  db.play(data.playerid, data.opponent, 
     function(results) {
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(JSON.stringify(results));
@@ -31,7 +30,7 @@ function update(response, postData) {
 }
 
 function join(response, postData) {
-  db_helper.newPlayer(JSON.parse(postData), function(results) {
+  db.newPlayer(JSON.parse(postData), function(results) {
     console.log(JSON.stringify(results));
     response.writeHead(200, {"Content-Type": "text/html"});
     response.write(JSON.stringify(results));
@@ -41,7 +40,7 @@ function join(response, postData) {
 
 function validate (response, postData) {
   var data = JSON.parse(postData);
-  db_helper.validateField(data.field, data.value, 
+  db.validateField(data.field, data.value, 
     function(results) {
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(JSON.stringify(results));
@@ -52,7 +51,7 @@ function validate (response, postData) {
 
 function login (response, postData) {
   var data = JSON.parse(postData);
-  db_helper.login(data.name, data.pwd, 
+  db.login(data.name, data.pwd, 
     function(results) {
       response.writeHead(200, {"Content-Type": "text/html"});
       response.write(JSON.stringify(results));
@@ -70,7 +69,7 @@ function token(response, postData) {
       tokenOpponent     = "2",
       tokenPlayerProm   = "3",
       tokenOpponentProm = "4";
-  db_helper.getGameData(gameid, 
+  db.getGameData(gameid, 
     function(row) {
       var oid = row.opponentid;
       if (oid &&  oid == playerid) {

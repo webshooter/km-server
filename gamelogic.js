@@ -1,5 +1,4 @@
-var //db_helper = require("./db_helper"),
-    db_helper = require("./db");
+var db = require("./db");
 
 function validateMove(move, boardstate, playerid, gameid) {
   var result = { valid: false, boardstate: boardstate },
@@ -15,7 +14,7 @@ function validateMove(move, boardstate, playerid, gameid) {
     // TODO: Need code to get boardstate from db and
     //       match to the provided boardstate value
 
-    db_helper.getGameData(gameid, 
+    db.getGameData(gameid, 
       function(row) {
 
         if (row.boardstate == boardstate) {
