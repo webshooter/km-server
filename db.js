@@ -1,11 +1,14 @@
-var mysql = require('mysql');
-var MYSQL_USERNAME = 'kingme';
-var MYSQL_PASSWORD = 'kingme';
+var mysql = require('mysql'),
+    MYSQL_HOST     = "localhost"
+    MYSQL_USERNAME = 'kingme',
+    MYSQL_PASSWORD = 'kingme';
  
-var client = mysql.createClient({
-  user: MYSQL_USERNAME,
+var client = mysql.createConnection({
+  host:     MYSQL_HOST,
+  user:     MYSQL_USERNAME,
   password: MYSQL_PASSWORD,
 });
+client.connect();
 client.query('USE kingme');
 
 
