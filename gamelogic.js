@@ -89,6 +89,33 @@ function validateMove(move, boardstate, playerid, gameid) {
           // TODO: Update moves table with this move data and
           //       set the activeid field in the games table
           //       to the next player id
+          if (result.valid) {
+            db.updateMove(gameid, playerid, move, result.boardstate, 
+              function(affectedRows) {
+                if (affectedRows == 1) {
+                  db.getGameData(gameid, 
+                    function(result) {
+                      var activeid = result.playerid;
+                      if (result.playerid == playerid) {
+                        activeid = result.opponentid;
+                      }
+                      db.updateTurn(gameid, activeid, 
+                        function(affectedRows) {
+                          if (affectedRows != 1) {
+                            console.log("Error trying to update turn for gameid=" + gameid +
+                                        " and playerid=" + playerid);
+                          }
+                        }
+                      );
+                    }
+                  );
+                } else {
+                  console.log("Error trying to update move for gameid=" + gameid +
+                              " and playerid=" + playerid);
+                }
+              }
+            );
+          }
 
         }
 

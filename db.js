@@ -297,4 +297,6 @@ exports.play                  = play;
 exports.newPlayer             = newPlayer;
 exports.getGameData           = getGameData;
 exports.getMostRecentMoveData = getMostRecentMoveData;
+exports.updateMove            = updateMove;
+exports.updateTurn            = updateTurn;
 
