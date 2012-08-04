@@ -56,11 +56,11 @@ function start(route, req) {
   }
 
   // load templates
-  templater.addTemplateToCache("main", "./html/main.tmpl.html", true);
-  templater.addTemplateToCache("test", "./html/test.html", true);
+  templater.addTemplateToCache("main", "./web/templates/main.tmpl.html", true);
+  templater.addTemplateToCache("test", "./web/pages/test.html", true);
 
   // load snippets
-  templater.addSnip("meta_default", "./html/meta.snip.html", true);
+  templater.addSnip("meta_default", "./web/snippets/meta.snip.html", true);
 
   http.createServer(onRequest).listen(port);
   console.log("Server has started on port " + port);
